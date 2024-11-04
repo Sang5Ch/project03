@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Algebra Quiz App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="project03.css">
+</head>
+<body>
+    <div id="app" class="container mt-5"></div>
+
+    
+
+    <!-- Handlebar -->
+    <script id="start-template" type="text/x-handlebars-template">
+        <div class="card shadow p-4">
+            <h2 class="card-title text-center mb-4">Welcome to the Algebra Quiz</h2>
+            <form id="quizForm">
+                <div class="form-group">
+                    <label for="userName">Enter Your Name:</label>
+                    <input type="text" id="userName" class="form-control" placeholder="Your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="quizSelection">Select a Quiz:</label>
+                    <select id="quizSelection" class="form-control" required>
+                        <option value="quizAlgebra">Quiz 1</option>
+                        <option value="quizAlgebra">Quiz 2</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Start Quiz</button>
+            </form>
+        </div>
+    </script>
+
+    <script id="question-template" type="text/x-handlebars-template">
+        <div class="card shadow p-4 mb-4">
+            <div class="card-body"> <!-- boxes that shows correct/incorrect/scores -->
+                <div class="scoreboard row text-center mb-3">
+                    <div class="col-md-4 score-box">
+                        <h6>Total Questions</h6>
+                        <p>10</p>
+                    </div>
+                    <div class="col-md-4 score-box">
+                        <h6>Correct</h6>
+                        <p>{{correct}}</p>
+                    </div>
+                    <div class="col-md-4 score-box">
+                        <h6>Incorrect</h6>
+                        <p>{{incorrect}}</p>
+                    </div>
+                    <div class="col-md-6 score-box">
+                        <h6>Elapsed Time</h6>
+                        <p>{{elapsedTime}} seconds</p>
+                    </div>
+                    <div class="col-md-6 score-box">
+                        <h6>Score</h6>
+                        <p>{{score}}%</p>
+                    </div>
+                </div>
+                <h5 class="card-title">Question {{number}}: {{text}}</h5> <!-- codes calling questions depends on type -->
+                {{#if isMultipleChoice}}
+                    <div class="mt-4">
+                        {{#each options}}
+                            <button class="btn btn-outline-primary btn-lg btn-block option" data-answer="{{this}}">{{this}}</button>
+                        {{/each}}
+                    </div>
+                {{else if isImageQuestion}}
+                    <div class="row mt-4">
+                        {{#each imageOptions}}
+                            <div class="col-md-4">
+                                <img src="{{this.src}}" alt="{{this.label}}" class="img-fluid option" data-answer="{{this.label}}">
+                                <p>{{this.label}}</p>
+                            </div>
+                        {{/each}}
+                    </div>
+                {{else}}
+                    <div class="form-group mt-4">
+                        <input type="text" id="narrativeAnswer" class="form-control" placeholder="Type your answer here">
+                        <button id="submitNarrative" class="btn btn-success mt-3">Submit</button>
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+    </script>
+
+    <div style="margin-top: 20px; text-align: center;"> <!-- footer that has names, pictures, and the quotes -->
+
+        <div class="container mt-3" style="background-color: lightcyan;">
+            <h2>Famous Quotes</h2>
+            <div class="media border p-3">
+              <img src="https://sang5ch.github.io/project03/Aristotle.jpg" alt="Aristo" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+              <div class="media-body">
+                <h4>Aristotle <small><i>Ancient Greek Philosopher and polymath</i></small></h4>
+                <p>Education is bitter, but its fruit is sweet.</p>      
+              </div>
+            </div>
+
+            <div class="media border p-3">
+                <img src="https://sang5ch.github.io/project03/Descartes.jpg" alt="Descar" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                <div class="media-body">
+                  <h4>René Descartes <small><i>French Mathematician, Scientist, and Philosopher</i></small></h4>
+                  <p>Cogito, ergo sum.</p>      
+                </div>
+            </div>
+
+            <div class="media border p-3">
+                <img src="https://sang5ch.github.io/project03/Eintein.jpg" alt="Eins" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+                <div class="media-body">
+                  <h4>Albert Einstein <small><i>German-born Theoretical Physicist</i></small></h4>
+                  <p>E = mc2.</p>      
+                </div>
+            </div>
+
+          </div>
+
+      </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+    <script src="project03.js"></script>
+</body>
+</html>
